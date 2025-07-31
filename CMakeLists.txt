@@ -37,6 +37,8 @@ else()
     message(STATUS "Using non-Clang compiler flags.")
 endif()
 
+set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/modules)
+
 if(UNIX AND NOT APPLE AND NOT MSVC)
     message(STATUS "Checking for Fortran compiler (gfortran)...")
     enable_language(Fortran OPTIONAL)
@@ -144,11 +146,13 @@ set(LINK_LIBS ${ARMADILLO_LIBRARIES}
 
 # Add subdirectories
 add_subdirectory(src/cpp)
+add_subdirectory(src/fortran)
 add_subdirectory(tests/cpp)
 add_subdirectory(tests/matlab_octave)
 add_subdirectory(examples/cpp)
+add_subdirectory(examples/fortran)
 
 # Custom target to build everything
-add_custom_target(all_build DEPENDS mole_C++ tests_C++ examples_C++ tests_matlab_octave)
+add_custom_target(all_build DEPENDS mole_C++ mole_fortran tests_C++ examples_C++ tests_matlab_octave)
 
 
